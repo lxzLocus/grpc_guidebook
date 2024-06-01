@@ -29,7 +29,15 @@ app.use(
   '/graphql',
   cors(),
   bodyParser.json(),
-  expressMiddleware(server), 
+  expressMiddleware(server ,{
+    context: async({req}) => {
+      return {
+        dataSources: {
+          catalogueApi: new CatalogueDataSource()
+        }
+      }
+    }
+  }) ,
 );
 
 app.listen(4000)
