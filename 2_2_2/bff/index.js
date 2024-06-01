@@ -6,11 +6,11 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { typeDefs } from './schema.js'
 import { resolvers } from './resolver.js'
-//2.2.10
 import { CatalogueDataSource }  from './datasource/catalogue.js' 
 
 // Expressサーバとの統合
 const app = express();
+
 
 // Expressサーバーへの受信リクエストを処理するhttpServerの設定
 const httpServer = http.createServer(app);
@@ -29,15 +29,7 @@ app.use(
   '/graphql',
   cors(),
   bodyParser.json(),
-  expressMiddleware(server, {
-    context: async ({ req }) => {
-        return {
-          dataSources: {
-            catalogueApi: new CatalogueDataSource()
-          }
-        }
-      }
-    }),
+  expressMiddleware(server), 
 );
 
 app.listen(4000)
